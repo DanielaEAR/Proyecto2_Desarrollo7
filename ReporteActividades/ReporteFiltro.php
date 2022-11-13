@@ -9,7 +9,6 @@
 </head>
 <body>
 <?php
-    //require_once('../class/Actividad.php');
     require_once('../Interfaz/ConsumirApis.php');
     $valorRes = 0;
 ?>
@@ -29,8 +28,8 @@
             <SELECT name="tiposA">
                 <OPTION value="0" SELECTED>Tipo
                 <?php
-                    $consumApiTipoA = new ConsumirApi();
-                    $tipoA = $consumApiTipoA->leerTipoA();
+                    $consumApiTipoAc= new ConsumirApi();
+                    $tipoA = $consumApiTipoAc->leerTipoA();
                     $nfilas=count($tipoA);
 
                     if($nfilas > 0){
@@ -62,16 +61,17 @@
     </div>
     <br/>
     <?php
-        $obj_repoAct = new Actividad();
-        $reporte = $obj_repoAct->consultarTodo();
+        $obj_repoAct = new ConsumirApi();
+        $reporte = $obj_repoAct->leerActividadesTodasR();
         
         if(array_key_exists('ConsultarTodos', $_POST)){
-            $obj_repoAct = new Actividad();
-            $reporte_todos = $obj_repoAct->consultarTodo();
+            $obj_repoAct = new ConsumirApi();
+            $reporte_todos = $obj_repoAct->leerActividadesTodasR();
         }
         if(array_key_exists('ConsultarFiltro', $_POST)){
-            $obj_repoAct = new Actividad();
-            $reporte = $obj_repoAct->mostrar_reporte($_REQUEST['campos'], $_REQUEST['fechaValor'], $_REQUEST['tiposA']);
+            $obj_repoAct = new ConsumirApi();
+            //$reporte = $obj_repoAct-> leerActividadesReporte();
+           // $reporte = $obj_repoAct->mostrar_reporte($_REQUEST['campos'], $_REQUEST['fechaValor'], $_REQUEST['tiposA']);
         }
 
         $nfilas=count($reporte);
@@ -95,16 +95,18 @@
         <?php
 
             if($nfilas > 0){
-                foreach($reporte as $resultado){
-                    print("<TR class='tablaTr'>\n");
-                    print("<TD class='tablaTh'>".$resultado['titulo']."</TD>\n");
-                    print("<TD class='tablaTh'>".$resultado['fecha']."</TD>\n");
-                    print("<TD class='tablaTh'>".$resultado['hora']."</TD>\n");
-                    print("<TD class='tablaTh'>".$resultado['ubicacion']."</TD>\n");
-                    print("<TD class='tablaTh'>".$resultado['email']."</TD>\n");
-                    print("<TD class='tablaTh'>".$resultado['repetirAct']."</TD>\n");
-                    print("<TD class='tablaTh'>".$resultado['nombreAct']."</TD>\n");
-                    print("</TR>\n");
+                foreach($reporte as $resultadoHeader){
+                    foreach($resultadoHeader as $resultado){
+                        print("<TR class='tablaTr'>\n");
+                        print("<TD class='tablaTh'>".$resultado['titulo']."</TD>\n");
+                        print("<TD class='tablaTh'>".$resultado['fecha']."</TD>\n");
+                        print("<TD class='tablaTh'>".$resultado['hora']."</TD>\n");
+                        print("<TD class='tablaTh'>".$resultado['ubicacion']."</TD>\n");
+                        print("<TD class='tablaTh'>".$resultado['email']."</TD>\n");
+                        print("<TD class='tablaTh'>".$resultado['repetirAct']."</TD>\n");
+                        print("<TD class='tablaTh'>".$resultado['nombreAct']."</TD>\n");
+                        print("</TR>\n");
+                    }
                 }        
             }else{
                 print("No hay Tipo de Actividades el Día de Hoy <br>");
