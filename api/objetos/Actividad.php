@@ -114,13 +114,13 @@ class Actividad {
         }
     }
     public function  mostrar_reporte($condiCampo, $valorF, $valorT){
-        $instruccion = "CALL mostrarReportes(:condiCampo, :valorF, :valorT);";
+        $instruccion = "CALL mostrarReportes(?,?,?);";
         $stmt = $this->_db->prepare($instruccion);
 
         // bind values
-        $stmt->bindParam(":condiCampo", $condiCampo);
-        $stmt->bindParam(":valorF", $valorF);
-        $stmt->bindParam(":valorT", $valorT);
+        $stmt->bindParam(1, $condiCampo);
+        $stmt->bindParam(2, $valorF);
+        $stmt->bindParam(3, $valorT);
 
         $stmt->execute();
 

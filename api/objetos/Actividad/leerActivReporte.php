@@ -2,7 +2,10 @@
 
 //encabezados obligatorios
 header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Headers: access");
+header("Access-Control-Allow-Methods: GET");
+header("Access-Control-Allow-Credentials: true");
+header('Content-Type: application/json');
 
 // incluir archivos de conexion y objetos
 include_once '../../Conexion.php';
@@ -14,7 +17,11 @@ $db = $conex->obtenerConexion();
 $actividadReport = new Actividad($db);
 
 // query tipo de actividades
-$stmt = $actividadReport->mostrar_reporte();//faltan los parámetros
+$campo = isset($_GET['campos']) ? $_GET['campos'] : die();
+$fecha = isset($_GET['fechaValor']) ? $_GET['fechaValor'] : die();
+$tipoA = isset($_GET['tiposA']) ? $_GET['tiposA'] : die();
+
+$stmt = $actividadReport->mostrar_reporte($campo, $fecha, $tipoA);
 $num = $stmt->rowCount();
 // verificar si hay mas de 0 registros encontrados
 
