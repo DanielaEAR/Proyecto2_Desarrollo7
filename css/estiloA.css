@@ -1,0 +1,134 @@
+/* Menú */
+:root{
+    --color1:#000;
+    --color2:rgb(185, 168, 15);
+}
+nav {
+    width: 100%;
+    background: rgba(0,0,0,0.7);
+}
+  
+nav ul {
+    list-style: none;
+    overflow: hidden; 
+}
+  
+nav ul li {
+    float: left;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+nav ul li a {
+    display: block;
+    padding: 10px;
+    color: #fff;
+    text-decoration: none;
+}
+nav ul li:hover {
+    background: #eca023;
+}
+.contenedor-filtro{
+    text-align: center;
+}
+/* Fuentes */
+.titulos{
+    font-family: 'Ubuntu', sans-serif;
+    text-align: center;
+}
+.tituloAct{
+    font-family: 'Lora', serif;
+    font-size: 20px;
+}
+p{
+    font-family: 'Lora', serif;
+}
+
+/* Acordeon */
+details{
+    background: #fcf4ca;
+    padding: 1rem;
+    margin: 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+}
+/*botones*/
+.btn{
+    color: #0099CC;
+    background: transparent;
+    border: 2px solid #0099CC;
+    border-radius: 6px;
+    border: none;
+    color: white;
+    padding: 16px 166px;
+    text-align: center;
+    display: inline-block;
+    font-size: 10px;
+    margin: 2px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.btn{
+    background-color: white; 
+    color: black; 
+    border: 2px solid #ffa600;
+}
+.btn:hover {
+    background-color: #ffe694;
+    color: white;
+}
+.btn-a{
+    text-decoration: none;
+    font-family: 'Ubuntu', sans-serif;
+    color:#272521;
+    ;
+}
+.espacio{
+    height: 200px;
+    position: relative;
+    align-items: center;
+
+}
+.espacio-btn{
+    text-align: center;
+    
+}
+.tabla-a{
+    text-decoration: none;
+    color:var(--color2);
+}
+/*Tablas*/
+.table{
+    margin: auto;
+}
+.tablaTh{
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: auto;
+}
+.tablaTr{
+    border: 1px solid #ddd;
+    padding: 8px;
+    margin: auto;
+}
+.tituMis{
+    border: 1px solid #ddd;
+    padding: 8px;
+    width: 80%;
+}
+/*Crear actividades*/
+.col-md-3{
+    margin-left: 50px;
+}
+.registro{
+    padding-top: 20px;
+}
+/*Footer*/
+.foot{
+    background-color: black;
+    margin-top: 10%;
+    height: 100px;
+    width: 100%;
+}
