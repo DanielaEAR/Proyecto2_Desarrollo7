@@ -11,7 +11,7 @@
 <body>
         <!-- Integración de la clases -->
 <?php
-    require_once('class/Actividad.php');
+    require_once('../Interfaz/ConsumirApis.php');
 ?>
         <!-- Menu de la aplicacion -->
     <nav>
@@ -24,23 +24,25 @@
     <br>
     <h2 class="titulos">Resumen De Mis Actividades</h2><br>
     <?php
-        $obj_resuAct = new Actividad();
-        $resumAct = $obj_resuAct->mostrar_actividades();
+        $consumApiResuAct = new ConsumirApi();
+        $resumAct = $consumApiResuAct->leerActividadesActuales();
         $nfilas=count($resumAct);
 
         if($nfilas > 0){
-            foreach($resumAct as $resultado){
-                print("<details>");
-                print("<summary class='tituloAct'>".$resultado['titulo']."</summary><br>");
-                print("<h4>Más detalles sobre la Actividad:</h4>");
-                print("<p>Fecha: ".$resultado['fecha']."</p>");
-                print("<p>Hora: ".$resultado['hora']."</p>");
-                print("<p>Ubicación: ".$resultado['ubicacion']."</p>");
-                print("<p>Email: ".$resultado['email']."</p>");
-                print("<p>Repetir/No repetir: ".$resultado['repetirAct']."</p>");
-                print("<p>Tipo de Actividad: ".$resultado['nombreAct']."</p>");
-                print("</details>");
-            }        
+            foreach($resumAct as $resultadoHeader){
+                foreach($resultadoHeader as $resultado){
+                    print("<details>");
+                    print("<summary class='tituloAct'>".$resultado['titulo']."</summary><br>");
+                    print("<h4>Más detalles sobre la Actividad:</h4>");
+                    print("<p>Fecha: ".$resultado['fecha']."</p>");
+                    print("<p>Hora: ".$resultado['hora']."</p>");
+                    print("<p>Ubicación: ".$resultado['ubicacion']."</p>");
+                    print("<p>Email: ".$resultado['email']."</p>");
+                    print("<p>Repetir/No repetir: ".$resultado['repetirAct']."</p>");
+                    print("<p>Tipo de Actividad: ".$resultado['nombreAct']."</p>");
+                    print("</details>");
+                }      
+            }  
         }else{
             print("No hay Tipo de Actividades el Día de Hoy <br>");
         }

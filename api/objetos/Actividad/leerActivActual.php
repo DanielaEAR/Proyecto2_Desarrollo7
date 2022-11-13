@@ -6,22 +6,22 @@ header("Content-Type: application/json; charset=UTF-8");
 
 // incluir archivos de conexion y objetos
 include_once '../../Conexion.php';
-include_once '../TipoActividad.php';
+include_once '../Actividad.php';
 // inicializar base de datos y objeto producto
 $conex = new Conexion();
 $db = $conex->obtenerConexion();
 // inicializar objeto
-$tipoAct = new TipoActividad($db);
+$actividadResu = new Actividad($db);
 
 // query tipo de actividades
-$stmt = $tipoAct->consultar_tiposAct();
+$stmt = $actividadResu->mostrar_actividades();
 $num = $stmt->rowCount();
 // verificar si hay mas de 0 registros encontrados
 
 if($num>0){
     // arreglo de tipo de actividad
-    $tipoActividad_arr=array();
-    $tipoActividad_arr["tipo"]=array();
+    $actividadResu_arr=array();
+    $actividadResu_arr["actividad"]=array();
     // obtiene todo el contenido de la tabla
     // fetch() es mas rapido que fetchAll()
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -33,7 +33,7 @@ if($num>0){
     "id_tipoAct" => $id_tipoAct,
     "nombreAct" => $nombreAct
     );
-    array_push($tipoActividad_arr["tipo"], $tipoactividad_item);
+    array_push($actividadResu_arr["actividad"], $tipoactividad_item);
     }
     // asignar codigo de respuesta - 200 OK
     http_response_code(200);

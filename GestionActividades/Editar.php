@@ -11,8 +11,7 @@
 <body>
     <!-- Integración de la clases -->
 <?php
-    require_once('../class/TipoActividad.php');
-    require_once('../class/Actividad.php');
+    require_once('../Interfaz/ConsumirApis.php');
     $id = $_GET['id'];
     $valorRes = 0;
 ?>
@@ -63,17 +62,19 @@
                 <SELECT name="tiposA">
                     <OPTION value="0" SELECTED>Tipo
                     <?php
-                        $obj_tipoA = new TipoActividad();
-                        $tipoA = $obj_tipoA->consultar_tiposAct();
+                        $consumApiTipoA = new ConsumirApi();
+                        $tipoA = $consumApiTipoA->leerTipoA();
                         $nfilas=count($tipoA);
 
                         if($nfilas > 0){
                             foreach($tipoA as $resultado){
-                                if($resultado['nombreAct'] == $tipo){
-                                    print("<OPTION selected value='".$resultado['id_tipoAct']."'>".$resultado['nombreAct']."</OPTION><br>");
-                                }else{
-                                    print("<OPTION value='".$resultado['id_tipoAct']."'>".$resultado['nombreAct']."</OPTION><br>");
-                                }
+                                foreach($resultado as $resultadoB){
+                                    if($resultadoB['nombreAct'] == $tipo){
+                                        print("<OPTION selected value='".$resultadoB['id_tipoAct']."'>".$resultadoB['nombreAct']."</OPTION><br>");
+                                    }else{
+                                        print("<OPTION value='".$resultadoB['id_tipoAct']."'>".$resultadoB['nombreAct']."</OPTION><br>");
+                                    }
+                                }      
                             }             
                     ?>
                 </SELECT><br><br>

@@ -4,7 +4,6 @@ class TipoActividad{
 
     // conexion de base de datos y tabla tipoactividad
     private $_db;
-    private $nombre_tabla = "tipoactividad";
 
     // atributos de la clase
     private $id_tipoAct;

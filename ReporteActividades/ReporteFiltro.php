@@ -10,7 +10,7 @@
 <body>
 <?php
     //require_once('../class/Actividad.php');
-    require_once('../api//objetos/TipoActividad/leerTipoA.php');
+    require_once('../Interfaz/ConsumirApis.php');
     $valorRes = 0;
 ?>
         <!-- Menu de la aplicacion -->
@@ -29,15 +29,17 @@
             <SELECT name="tiposA">
                 <OPTION value="0" SELECTED>Tipo
                 <?php
-                    $obj_tipoA = new TipoActividad();
-                    $tipoA = $obj_tipoA->consultar_tiposAct();
+                    $consumApiTipoA = new ConsumirApi();
+                    $tipoA = $consumApiTipoA->leerTipoA();
                     $nfilas=count($tipoA);
 
                     if($nfilas > 0){
                         foreach($tipoA as $resultado){
-                            print("<OPTION value='".$resultado['id_tipoAct']."'>".$resultado['nombreAct']."<br>");
+                            foreach($resultado as $resultadoB){
+                                print("<OPTION value='".$resultadoB['id_tipoAct']."'>".$resultadoB['nombreAct']."<br>");
+                            }      
                         }             
-                    ?>
+                ?>
             </SELECT>
                 <?php
                     }else{

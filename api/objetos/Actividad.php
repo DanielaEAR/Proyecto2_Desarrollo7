@@ -1,8 +1,10 @@
 <?php
-require_once('modelo.php');
 
-class Actividad extends modeloCredencialesBD{
+class Actividad {
+    // conexion de base de datos y tabla tipoactividad
+    private $_db;
 
+    // atributos de la clase
     private $id_actividad;
     private $fecha;
     private $hora;
@@ -11,67 +13,67 @@ class Actividad extends modeloCredencialesBD{
     private $repetirAct;
     private $tipoAct;
 
-    public function __construct(){
+    public function __construct($db){
    
-        parent::__construct();
+        $this->_db = $db;
        
     }
     public function  mostrar_actividades(){
         $instruccion = "CALL mostrarActividades()";
-        $consulta = $this->_db->query($instruccion);
-        $resultado = $consulta->fetch_all(MYSQLI_ASSOC);
+        $stmt = $this->_db->prepare($instruccion);
+        $stmt->execute();
 
-        if(!$resultado){
-
+        if(!$stmt){
             print("<script> alert('Fallo al consultar las actividades del día de hoy'); </script>");
-
         }else{
-            return $resultado;
-            $resultado->close();
+            return $stmt;
+            $stmt->close();
             $this->_db->close();
         }
     }
     public function consultarTodasAct(){
         $instruccion = "CALL consultar_todas()";
-        $consulta = $this->_db->query($instruccion);
-        $resultado = $consulta->fetch_all(MYSQLI_ASSOC);
+        $stmt = $this->_db->prepare($instruccion);
+        $stmt->execute();
 
-        if(!$resultado){
+        if(!$stmt){
             print("<script> alert('Fallo al consultar las actividades'); </script>");
-
         }else{
-            return $resultado;
-            $resultado->close();
+            return $stmt;
+            $stmt->close();
             $this->_db->close();
         }
     }
     public function consultarTodo(){
         $instruccion = "CALL mostrar_todo_act()";
-        $consulta = $this->_db->query($instruccion);
-        $resultado = $consulta->fetch_all(MYSQLI_ASSOC);
+        $stmt = $this->_db->prepare($instruccion);
+        $stmt->execute();
 
-        if(!$resultado){
+        if(!$stmt){
             print("<script> alert('Fallo al consultar las actividades'); </script>");
-
         }else{
-            return $resultado;
-            $resultado->close();
+            return $stmt;
+            $stmt->close();
             $this->_db->close();
         }
     }
     public function consultarUnaAct($id){
-        $instruccion = "CALL consultar_una_act($id)";
-        $consulta = $this->_db->query($instruccion);
-        $resultado = $consulta->fetch_all(MYSQLI_ASSOC);
+        $instruccion = "CALL consultar_una_act(:id)";
+        $stmt = $this->_db->prepare($instruccion);
 
-        if(!$resultado){
+        // bind values
+        $stmt->bindParam(":id", $id);
+
+        $stmt->execute();
+
+        if(!$stmt){
             print("<script> alert('Fallo al consultar las actividades'); </script>");
         }else{
-            return $resultado;
-            $resultado->close();
+            return $stmt;
+            $stmt->close();
             $this->_db->close();
         }
-    }
+    }//hasta aquí he cambiado código
     public function registrarAct($titulo, $fecha, $hora, $ubicacion, $email, $repetir, $tipoAct){
         $instruccion = "CALL registratAct('".$titulo."','".$fecha."','".$hora."','".$ubicacion."','".$email."','".$repetir."','".$tipoAct."')";
         $consulta = $this->_db->query($instruccion);
