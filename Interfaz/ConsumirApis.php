@@ -36,9 +36,9 @@ Class ConsumirApi{
         return $valores;
         curl_close($ch);
     }
-    public function leerActividadesReporte(){
+    public function leerActividadesReporte($campos, $fechaValor, $tiposA){
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "http://localhost/Proyectos/Proy2/api/objetos/Actividad/leerActivReporte.php");
+        curl_setopt($ch, CURLOPT_URL, "http://localhost/Proyectos/Proy2/api/objetos/Actividad/leerActivReporte.php?campos=".$campos."&fechaValor=".$fechaValor."&tiposA=".$tiposA);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $resultado = curl_exec($ch);
 
