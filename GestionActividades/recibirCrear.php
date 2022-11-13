@@ -1,5 +1,5 @@
 <?php
-require_once('../class/Actividad.php');
+require_once('../Interfaz/ConsumirApis.php');
 
     if($_REQUEST['rs'] == "si"){
         $valorRes = "23:53";

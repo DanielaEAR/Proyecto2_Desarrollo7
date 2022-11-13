@@ -58,11 +58,11 @@ class Actividad {
         }
     }
     public function consultarUnaAct($id){
-        $instruccion = "CALL consultar_una_act(:id)";
+        $instruccion = "CALL consultar_una_act(?)";
         $stmt = $this->_db->prepare($instruccion);
 
         // bind values
-        $stmt->bindParam(":id", $id);
+        $stmt->bindParam(1, $id);
 
         $stmt->execute();
 
