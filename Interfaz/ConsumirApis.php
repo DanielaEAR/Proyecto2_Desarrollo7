@@ -16,7 +16,7 @@ Class ConsumirApi{
     }
     public function leerActividadesActuales(){
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "http://localhost/Proyectos/Proy2/api/objetos/Actividad/");
+        curl_setopt($ch, CURLOPT_URL, "http://localhost/Proyectos/Proy2/api/objetos/Actividad/leerActivActual.php");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $resultado = curl_exec($ch);
 

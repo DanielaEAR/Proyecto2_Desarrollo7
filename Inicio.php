@@ -11,7 +11,7 @@
 <body>
         <!-- Integración de la clases -->
 <?php
-    require_once('../Interfaz/ConsumirApis.php');
+    require_once('Interfaz/ConsumirApis.php');
 ?>
         <!-- Menu de la aplicacion -->
     <nav>

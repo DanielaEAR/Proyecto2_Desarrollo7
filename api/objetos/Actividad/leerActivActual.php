@@ -29,22 +29,27 @@ if($num>0){
     // esto creara de $row['nombre'] a
     // solamente $nombre
     extract($row);
-    $tipoactividad_item=array(
-    "id_tipoAct" => $id_tipoAct,
+    $actividad_item=array(
+    "titulo" => $titulo,
+    "fecha" => $fecha,
+    "hora" => $hora,
+    "ubicacion" => $ubicacion,
+    "email" => $email,
+    "repetirAct" => $repetirAct,
     "nombreAct" => $nombreAct
     );
-    array_push($actividadResu_arr["actividad"], $tipoactividad_item);
+    array_push($actividadResu_arr["actividad"], $actividad_item);
     }
     // asignar codigo de respuesta - 200 OK
     http_response_code(200);
     // mostrar productos en formato json
-    echo json_encode($tipoActividad_arr);
+    echo json_encode($actividadResu_arr);
 }else{
     // asignar codigo de respuesta - 404 No encontrado
     http_response_code(404);
     // informarle al usuario que no se encontraron productos
     echo json_encode(
-    array("message" => "No se encontraron Tipos de Actividades.")
+    array("message" => "No Hay Actividades para el día de hoy.")
     );
 }
 
