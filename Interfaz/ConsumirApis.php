@@ -25,6 +25,28 @@ Class ConsumirApi{
         return $valores;
         curl_close($ch);
     }
+    public function leerActividadesTodasR(){
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "http://localhost/Proyectos/Proy2/api/objetos/Actividad/leerActivTodasR.php");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $resultado = curl_exec($ch);
+
+        $valores = json_decode($resultado, true);
+
+        return $valores;
+        curl_close($ch);
+    }
+    public function leerActividadesReporte(){
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "http://localhost/Proyectos/Proy2/api/objetos/Actividad/leerActivReporte.php");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $resultado = curl_exec($ch);
+
+        $valores = json_decode($resultado, true);
+
+        return $valores;
+        curl_close($ch);
+    }
 
 }
 
