@@ -30,30 +30,32 @@
             <h1>Agenda de Actividades</h1>
             <form class="registro" name="registro" action="recibirEditar.php" method="POST">
             <?php
-                $obj_buscAct = new Actividad();
-                $buscAct = $obj_buscAct->consultarUnaAct($id);
+                $obj_buscAct = new ConsumirApi();
+                $buscAct = $obj_buscAct->leerEditarActividades($id);
                 $nfilasA = count($buscAct);
                 
                 if($nfilasA > 0){
-                    foreach($buscAct as $resultAc){
-                        print("<input type='hidden' name='id' value='".$id."'>");
-                        print("<input type='text' name='titulo'  value='".$resultAc['titulo']."'><br><br>");
-                        print("<input type='date' name='fecha'  value='".$resultAc['fecha']."'><br><br>");
-                        print("<input type='time' name='hora' value='".$resultAc['hora']."'> <br> <br>");
-                        print("<input type='text' name='ubicacion' value='".$resultAc['ubicacion']."'><br><br>");
-                        print("<input type='text' name='email' value='".$resultAc['email']."'><br><br><hr>");
-                        print("<b><p>Desea repetir todo el dia:</p></b>");
-                        if($resultAc['repetirAct'] == "23:59:00"){
-                            print("<input id=res type='radio' id='si' name='rs' value='si' checked>SI<br>");
-                            print("<input id=res type='radio' id='no' name='rs' value='no'>NO<br><br>");
-                        }else{
-                            print("<input id=res type='radio' id='si' name='rs' value='si'>SI<br>");
-                            print("<input id=res type='radio' id='no' name='rs' value='no' checked>NO<br><br>");
-                        }
-                        print("<input id='h' type='time' name='horaR' value='".$resultAc['repetirAct']."'> <br> <br>");
-                        $tipo = $resultAc['nombreAct'];
-            
-                    } 
+                    foreach($buscAct as $resultAcHeader){
+                        foreach($resultAcHeader as $resultAc){
+                            print("<input type='hidden' name='id' value='".$id."'>");
+                            print("<input type='text' name='titulo'  value='".$resultAc['titulo']."'><br><br>");
+                            print("<input type='date' name='fecha'  value='".$resultAc['fecha']."'><br><br>");
+                            print("<input type='time' name='hora' value='".$resultAc['hora']."'> <br> <br>");
+                            print("<input type='text' name='ubicacion' value='".$resultAc['ubicacion']."'><br><br>");
+                            print("<input type='text' name='email' value='".$resultAc['email']."'><br><br><hr>");
+                            print("<b><p>Desea repetir todo el dia:</p></b>");
+                            if($resultAc['repetirAct'] == "23:59:00"){
+                                print("<input id=res type='radio' id='si' name='rs' value='si' checked>SI<br>");
+                                print("<input id=res type='radio' id='no' name='rs' value='no'>NO<br><br>");
+                            }else{
+                                print("<input id=res type='radio' id='si' name='rs' value='si'>SI<br>");
+                                print("<input id=res type='radio' id='no' name='rs' value='no' checked>NO<br><br>");
+                            }
+                            print("<input id='h' type='time' name='horaR' value='".$resultAc['repetirAct']."'> <br> <br>");
+                            $tipo = $resultAc['nombreAct'];
+                
+                        } 
+                    }
                 }           
             ?>
                 <hr>

@@ -2,10 +2,7 @@
 
 //encabezados obligatorios
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: access");
-header("Access-Control-Allow-Methods: GET");
-header("Access-Control-Allow-Credentials: true");
-header('Content-Type: application/json');
+header("Content-Type: application/json; charset=UTF-8");
 
 // incluir archivos de conexion y objetos
 include_once '../../Conexion.php';
@@ -14,21 +11,17 @@ include_once '../Actividad.php';
 $conex = new Conexion();
 $db = $conex->obtenerConexion();
 // inicializar objeto
-$actividadReport = new Actividad($db);
+$actividadTodasAct = new Actividad($db);
 
 // query tipo de actividades
-$campo = isset($_GET['campos']) ? $_GET['campos'] : die();
-$fecha = isset($_GET['fechaValor']) ? $_GET['fechaValor'] : die();
-$tipoA = isset($_GET['tiposA']) ? $_GET['tiposA'] : die();
-
-$stmt = $actividadReport->mostrar_reporte($campo, $fecha, $tipoA);
+$stmt = $actividadTodasAct->consultarTodasAct();
 $num = $stmt->rowCount();
 // verificar si hay mas de 0 registros encontrados
 
 if($num>0){
     // arreglo de tipo de actividad
-    $actividadReport_arr=array();
-    $actividadReport_arr["actividad"]=array();
+    $actividadTodasAct_arr=array();
+    $actividadTodasAct_arr["actividadesTodas"]=array();
     // obtiene todo el contenido de la tabla
     // fetch() es mas rapido que fetchAll()
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -36,21 +29,16 @@ if($num>0){
     // esto creara de $row['nombre'] a
     // solamente $nombre
     extract($row);
-    $actividadReport_item=array(
-    "titulo" => $titulo,
-    "fecha" => $fecha,
-    "hora" => $hora,
-    "ubicacion" => $ubicacion,
-    "email" => $email,
-    "repetirAct" => $repetirAct,
-    "nombreAct" => $nombreAct
+    $actividadTodasAct_item=array(
+    "id_actividad" => $id_actividad,
+    "titulo" => $titulo
     );
-    array_push($actividadReport_arr["actividad"], $actividadReport_item);
+    array_push($actividadTodasAct_arr["actividadesTodas"], $actividadTodasAct_item);
     }
     // asignar codigo de respuesta - 200 OK
     http_response_code(200);
     // mostrar productos en formato json
-    echo json_encode($actividadReport_arr);
+    echo json_encode($actividadTodasAct_arr);
 }else{
     // asignar codigo de respuesta - 404 No encontrado
     http_response_code(404);

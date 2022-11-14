@@ -1,5 +1,5 @@
 <?php
-require_once('../class/Actividad.php');
+require_once('../Interfaz/ConsumirApis.php');
 
 
     if($_REQUEST['rs'] == "si"){
@@ -11,10 +11,21 @@ require_once('../class/Actividad.php');
     if(array_key_exists('titulo', $_POST)  && array_key_exists('fecha', $_POST) &&
         array_key_exists('hora', $_POST)  && array_key_exists('ubicacion', $_POST) &&
         array_key_exists('email', $_POST) && array_key_exists('tiposA', $_POST) && $_REQUEST['tiposA'] != 0){
+            
+            $data_array =  array(
+                "id" => $_REQUEST['id'],
+                "titulo" => $_REQUEST['titulo'],
+                "fecha"  => $_REQUEST['fecha'],
+                "hora"   => $_REQUEST['hora'],
+                "ubicacion"   => $_REQUEST['ubicacion'],
+                "email"   => $_REQUEST['email'],
+                "repetirAct"   => $valorRes,
+                "nombreAct"   => $_REQUEST['tiposA']
+            );
 
-        $obj_editarAct = new Actividad();
-        $editarActividad = $obj_editarAct->editarAct($_REQUEST['id'], $_REQUEST['titulo'], $_REQUEST['fecha'], $_REQUEST['hora'], 
-                                                $_REQUEST['ubicacion'], $_REQUEST['email'], $valorRes, $_REQUEST['tiposA']);
+        $obj_editarAct = new ConsumirApi();
+        $editarActividad = $obj_editarAct->editarActividades(json_encode($data_array));
+
         if($editarActividad > 0){
         //Se ingresó correctamente
             print("<script> alert('Se Actualizó correctamente'); </script>");

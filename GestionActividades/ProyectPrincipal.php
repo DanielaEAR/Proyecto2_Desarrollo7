@@ -11,7 +11,7 @@
 <body>
     <!-- Integración de la clases -->
 <?php
-    require_once('../class/Actividad.php');
+    require_once('../Interfaz/ConsumirApis.php');
 ?>   
     <!-- Menu de la aplicacion -->
     <nav>
@@ -35,20 +35,23 @@
         </thead>
         <tbody>  
         <?php
-            $obj_todasAc = new Actividad();
-            $todasAct = $obj_todasAc->consultarTodasAct();
+            $obj_todasAc = new ConsumirApi();
+            $todasAct = $obj_todasAc->leerActividadesPrincipales();
             $nfilasT=count($todasAct);
-
+            $var = 0;
             if($nfilasT > 0){
-                foreach($todasAct as $resTodas){
-                    print("<tr class='tablaTr'>");
-                    print("<th class='tablaTh'>".$resTodas['id_actividad']."</th>");
-                    print("<th class='tituMis'>".$resTodas['titulo']."</th>");
-                    $idA = $resTodas['id_actividad'];
-                    print("<th class='tablaTh'><a class='tabla-a' href='Editar.php?id=$idA'>Editar</a></th>");
-                    print("<th class='tablaTh'><a class='tabla-a' href='Eliminar.php?id=$idA'>Eliminar</a></th>");
-                    print("</tr>");
-                } 
+                foreach($todasAct as $resTodasHeader){
+                    foreach($resTodasHeader as $resTodas){
+                        print("<tr class='tablaTr'>");
+                        //print("<th class='tablaTh'>".$resTodas['id_actividad']."</th>");
+                        print("<th class='tablaTh'>".($var = $var + 1)."</th>");
+                        print("<th class='tituMis'>".$resTodas['titulo']."</th>");
+                        $idA = $resTodas['id_actividad'];
+                        print("<th class='tablaTh'><a class='tabla-a' href='Editar.php?id=$idA'>Editar</a></th>");
+                        print("<th class='tablaTh'><a class='tabla-a' href='Eliminar.php?id=$idA'>Eliminar</a></th>");
+                        print("</tr>");
+                    } 
+                }   
             }
         ?>
         </tbody>

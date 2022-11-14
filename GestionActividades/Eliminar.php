@@ -1,9 +1,13 @@
 <?php
-require_once('../class/Actividad.php');
+require_once('../Interfaz/ConsumirApis.php');
 
-        $idActividad = $_GET['id'];
-        $obj_eliminarAct = new Actividad();
-        $eliminar = $obj_eliminarAct->eliminarAct($idActividad);
+        //$idActividad = $_GET['id'];
+       // $idActividad = array('id'=>$_GET['id']);
+       $idActividad =  array(
+                            "id" => $_GET['id']
+                        );
+        $obj_eliminarAct = new ConsumirApi();
+        $eliminar = $obj_eliminarAct->eliminarActividades(json_encode($idActividad));
         
         if($eliminar > 0){
         //Se ingresó correctamente

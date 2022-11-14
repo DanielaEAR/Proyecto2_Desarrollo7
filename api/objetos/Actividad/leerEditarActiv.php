@@ -14,21 +14,19 @@ include_once '../Actividad.php';
 $conex = new Conexion();
 $db = $conex->obtenerConexion();
 // inicializar objeto
-$actividadReport = new Actividad($db);
+$actividadeTodaPrinc= new Actividad($db);
 
 // query tipo de actividades
-$campo = isset($_GET['campos']) ? $_GET['campos'] : die();
-$fecha = isset($_GET['fechaValor']) ? $_GET['fechaValor'] : die();
-$tipoA = isset($_GET['tiposA']) ? $_GET['tiposA'] : die();
+$id = isset($_GET['idAct']) ? $_GET['idAct'] : die();
 
-$stmt = $actividadReport->mostrar_reporte($campo, $fecha, $tipoA);
+$stmt = $actividadeTodaPrinc->consultarUnaAct($id);
 $num = $stmt->rowCount();
 // verificar si hay mas de 0 registros encontrados
 
 if($num>0){
     // arreglo de tipo de actividad
-    $actividadReport_arr=array();
-    $actividadReport_arr["actividad"]=array();
+    $actividadeTodaPrinc_arr=array();
+    $actividadeTodaPrinc_arr["actividades"]=array();
     // obtiene todo el contenido de la tabla
     // fetch() es mas rapido que fetchAll()
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -36,7 +34,7 @@ if($num>0){
     // esto creara de $row['nombre'] a
     // solamente $nombre
     extract($row);
-    $actividadReport_item=array(
+    $actividadeTodaPrinc_item=array(
     "titulo" => $titulo,
     "fecha" => $fecha,
     "hora" => $hora,
@@ -45,12 +43,12 @@ if($num>0){
     "repetirAct" => $repetirAct,
     "nombreAct" => $nombreAct
     );
-    array_push($actividadReport_arr["actividad"], $actividadReport_item);
+    array_push($actividadeTodaPrinc_arr["actividades"], $actividadeTodaPrinc_item);
     }
     // asignar codigo de respuesta - 200 OK
     http_response_code(200);
     // mostrar productos en formato json
-    echo json_encode($actividadReport_arr);
+    echo json_encode($actividadeTodaPrinc_arr);
 }else{
     // asignar codigo de respuesta - 404 No encontrado
     http_response_code(404);

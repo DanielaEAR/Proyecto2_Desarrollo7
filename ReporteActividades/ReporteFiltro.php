@@ -66,12 +66,11 @@
         
         if(array_key_exists('ConsultarTodos', $_POST)){
             $obj_repoAct = new ConsumirApi();
-            $reporte_todos = $obj_repoAct->leerActividadesTodasR();
+            $reporte = $obj_repoAct->leerActividadesTodasR();
         }
         if(array_key_exists('ConsultarFiltro', $_POST)){
             $obj_repoAct = new ConsumirApi();
-            //$reporte = $obj_repoAct-> leerActividadesReporte();
-           // $reporte = $obj_repoAct->mostrar_reporte($_REQUEST['campos'], $_REQUEST['fechaValor'], $_REQUEST['tiposA']);
+            $reporte = $obj_repoAct-> leerActividadesReporte($_REQUEST['campos'], $_REQUEST['fechaValor'], $_REQUEST['tiposA']);
         }
 
         $nfilas=count($reporte);
