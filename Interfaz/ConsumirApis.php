@@ -51,11 +51,11 @@ Class ConsumirApi{
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         if ($data){
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         }
         curl_setopt($ch, CURLOPT_URL, "http://localhost/Proyectos/Proy2/api/objetos/Actividad/actualizarActividad.php");
 
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'APIKEY: 111111111111111111111',
             'Content-Type: application/json',
             ));

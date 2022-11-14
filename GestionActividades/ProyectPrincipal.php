@@ -38,12 +38,13 @@
             $obj_todasAc = new ConsumirApi();
             $todasAct = $obj_todasAc->leerActividadesPrincipales();
             $nfilasT=count($todasAct);
-
+            $var = 0;
             if($nfilasT > 0){
                 foreach($todasAct as $resTodasHeader){
                     foreach($resTodasHeader as $resTodas){
                         print("<tr class='tablaTr'>");
-                        print("<th class='tablaTh'>".$resTodas['id_actividad']."</th>");
+                        //print("<th class='tablaTh'>".$resTodas['id_actividad']."</th>");
+                        print("<th class='tablaTh'>".($var = $var + 1)."</th>");
                         print("<th class='tituMis'>".$resTodas['titulo']."</th>");
                         $idA = $resTodas['id_actividad'];
                         print("<th class='tablaTh'><a class='tabla-a' href='Editar.php?id=$idA'>Editar</a></th>");

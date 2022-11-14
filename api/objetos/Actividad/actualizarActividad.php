@@ -15,46 +15,44 @@ $db = $conex->obtenerConexion();
 // inicializar objeto
 $actualizarActividad= new Actividad($db);
 
-// query tipo de actividades
-$id = isset($_GET['idAct']) ? $_GET['idAct'] : die();
-
-$stmt = $actualizarActividad->editarAct($id, $titulo, $fecha, $hora, $ubicacion, $email, $repetir, $tipoAct);
-$num = $stmt->rowCount();
-// verificar si hay mas de 0 registros encontrados
-/*
-if($num>0){
-    // arreglo de tipo de actividad
-    $actualizarActividad_arr=array();
-    $actualizarActividad_arr["actividades"]=array();
-    // obtiene todo el contenido de la tabla
-    // fetch() es mas rapido que fetchAll()
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-    // extraer fila
-    // esto creara de $row['nombre'] a
-    // solamente $nombre
-    extract($row);
-    $actualizarActividad_item=array(
-    "titulo" => $titulo,
-    "fecha" => $fecha,
-    "hora" => $hora,
-    "ubicacion" => $ubicacion,
-    "email" => $email,
-    "repetirAct" => $repetirAct,
-    "nombreAct" => $nombreAct
-    );
-    array_push($actualizarActividad_arr["actividades"], $actualizarActividad_item);
+// obtener los datos
+$data = json_decode(file_get_contents("php://input"));
+// asegurar que los datos no esten vacios
+if(
+    !empty($data->titulo) &&
+    !empty($data->fecha) &&
+    !empty($data->hora) &&
+    !empty($data->ubicacion) &&
+    !empty($data->email) &&
+    !empty($data->repetirAct) &&
+    !empty($data->nombreAct)  
+){
+// asignar valores de propiedad a la actividad
+$stmt = $actualizarActividad -> editarAct(
+                                $data->id, $data->titulo, $data->fecha, $data->hora, 
+                                $data->ubicacion, $data->email, $data->repetirAct, $data->nombreAct
+                            );
+    if($stmt){
+        // asignar codigo de respuesta - 201 creado
+        http_response_code(201);
+        // informar al usuario
+        echo json_encode(array("message" => "La actividad ha sido actualizada."));
     }
-    // asignar codigo de respuesta - 200 OK
-    http_response_code(200);
-    // mostrar productos en formato json
-    echo json_encode($actualizarActividad_arr);
-}else{
-    // asignar codigo de respuesta - 404 No encontrado
-    http_response_code(404);
-    // informarle al usuario que no se encontraron productos
-    echo json_encode(
-    array("message" => "No Hay Actividades.")
-    );
-}*/
+    // si no puede crear el producto, informar al usuario
+    else{
+        // asignar codigo de respuesta - 503 servicio no disponible
+        http_response_code(503);
+        // informar al usuario
+        echo json_encode(array("message" => "No se puede actualizar la actividad."));
+    }
+}// informar al usuario que los datos estan incompletos
+else{
+    // asignar codigo de respuesta - 400 solicitud incorrecta
+    http_response_code(400);
+    // informar al usuario
+    echo json_encode(array("message" => "No se puede actualizar la actividad. Los datos
+    están incompletos."));
+}
+
 
 ?>
