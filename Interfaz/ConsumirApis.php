@@ -47,7 +47,30 @@ Class ConsumirApi{
         return $valores;
         curl_close($ch);
     }
-    public function editarActividades(){
+    public function editarActividades($data){
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+        if ($data){
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        }
+        curl_setopt($ch, CURLOPT_URL, "http://localhost/Proyectos/Proy2/api/objetos/Actividad/actualizarActividad.php");
+
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+            'APIKEY: 111111111111111111111',
+            'Content-Type: application/json',
+            ));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+         // EXECUTE:
+         $resultado = curl_exec($ch);
+         if(!$resultado){
+            die("Connection Failure");
+        }
+         curl_close($ch);
+
+         return $resultado;
+    }
+    public function eliminarActividades($id){//falta
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "http://localhost/Proyectos/Proy2/api/objetos/Actividad/");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -58,27 +81,28 @@ Class ConsumirApi{
         return $valores;
         curl_close($ch);
     }
-    public function eliminarActividades(){//falta
+    public function crearActividades($data){
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "http://localhost/Proyectos/Proy2/api/objetos/Actividad/");
+        curl_setopt($ch, CURLOPT_POST, 1);
+        if ($data){
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        }   
+        curl_setopt($ch, CURLOPT_URL, "http://localhost/Proyectos/Proy2/api/objetos/Actividad/crearActividad.php");
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'APIKEY: 111111111111111111111',
+            'Content-Type: application/json',
+        ));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        // EXECUTE:
         $resultado = curl_exec($ch);
 
-        $valores = json_decode($resultado, true);
+        if(!$resultado){
+            die("Connection Failure");
+        }
+         curl_close($ch);
 
-        return $valores;
-        curl_close($ch);
-    }
-    public function crearActividades(){//falta
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "http://localhost/Proyectos/Proy2/api/objetos/Actividad/");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $resultado = curl_exec($ch);
-
-        $valores = json_decode($resultado, true);
-
-        return $valores;
-        curl_close($ch);
+         return $resultado;
     }
     public function leerActividadesTodasR(){
         $ch = curl_init();

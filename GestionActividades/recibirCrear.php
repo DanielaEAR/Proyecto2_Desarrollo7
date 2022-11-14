@@ -10,10 +10,21 @@ require_once('../Interfaz/ConsumirApis.php');
     if(array_key_exists('titulo', $_POST)  && array_key_exists('fecha', $_POST) &&
        array_key_exists('hora', $_POST)  && array_key_exists('ubicacion', $_POST) &&
        array_key_exists('email', $_POST) && array_key_exists('tiposA', $_POST)){
+        
+        $data_array =  array(
+                  "titulo" => $_REQUEST['titulo'],
+                  "fecha"  => $_REQUEST['fecha'],
+                  "hora"   => $_REQUEST['hora'],
+                  "ubicacion"   => $_REQUEST['ubicacion'],
+                  "email"   => $_REQUEST['email'],
+                  "repetirAct"   => $valorRes,
+                  "nombreAct"   => $_REQUEST['tiposA']
+                );
 
-        $obj_act = new Actividad();
-        $registrarActividad = $obj_act->registrarAct($_REQUEST['titulo'], $_REQUEST['fecha'], $_REQUEST['hora'], $_REQUEST['ubicacion'], 
-                                            $_REQUEST['email'], $valorRes, $_REQUEST['tiposA']);
+        $obj_act = new ConsumirApi();
+/*         $registrarActividad = $obj_act->crearActividades($_REQUEST['titulo'], $_REQUEST['fecha'], $_REQUEST['hora'], $_REQUEST['ubicacion'], 
+                                            $_REQUEST['email'], $valorRes, $_REQUEST['tiposA']); */
+        $registrarActividad = $obj_act->crearActividades(json_encode($data_array));
         if($registrarActividad > 0){
         //Se ingresó correctamente
             print("<script> alert('Se ingresó correctamente'); </script>");

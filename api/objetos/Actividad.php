@@ -73,43 +73,70 @@ class Actividad {
             $stmt->close();
             $this->_db->close();
         }
-    }//falta aquí
+    }
     public function registrarAct($titulo, $fecha, $hora, $ubicacion, $email, $repetir, $tipoAct){
-        $instruccion = "CALL registratAct('".$titulo."','".$fecha."','".$hora."','".$ubicacion."','".$email."','".$repetir."','".$tipoAct."')";
-        $consulta = $this->_db->query($instruccion);
-        $resultado = $consulta;
 
-        if(!$resultado){
-            print("<script> alert('Fallo al consultar las actividades'); </script>");
+        $instruccion = "CALL registratAct(?,?,?,?,?,?,?)";
+        $stmt = $this->_db->prepare($instruccion);
+
+        // bind values
+        $stmt->bindParam(1, $titulo);
+        $stmt->bindParam(2, $fecha);
+        $stmt->bindParam(3, $hora);
+        $stmt->bindParam(4, $ubicacion);
+        $stmt->bindParam(5, $email);
+        $stmt->bindParam(6, $repetir);
+        $stmt->bindParam(7, $tipoAct);
+
+        $stmt->execute();
+
+        if(!$stmt){
+            print("<script> alert('Fallo al consultar la actividade'); </script>");
         }else{
-            return $resultado;
-            $resultado->close();
+            return $stmt;
+            $stmt->close();
             $this->_db->close();
         }
-    }//falta aquí
+    }
     public function editarAct($id, $titulo, $fecha, $hora, $ubicacion, $email, $repetir, $tipoAct){
-        $instruccion = "CALL editartAct(".$id.",'".$titulo."','".$fecha."','".$hora."','".$ubicacion."','".$email."','".$repetir."','".$tipoAct."')";
-        $consulta = $this->_db->query($instruccion);
-        $resultado = $consulta;
 
-        if(!$resultado){
+        $instruccion = "CALL editartAct(?,?,?,?,?,?,?,?)";
+        $stmt = $this->_db->prepare($instruccion);
+
+        // bind values
+        $stmt->bindParam(1, $id);
+        $stmt->bindParam(2, $titulo);
+        $stmt->bindParam(3, $fecha);
+        $stmt->bindParam(4, $hora);
+        $stmt->bindParam(5, $ubicacion);
+        $stmt->bindParam(6, $email);
+        $stmt->bindParam(7, $repetir);
+        $stmt->bindParam(8, $tipoAct);
+
+        $stmt->execute();
+
+        if(!$stmt){
             print("<script> alert('Fallo al consultar las actividades'); </script>");
         }else{
-            return $resultado;
-            $resultado->close();
+            return $stmt;
+            $stmt->close();
             $this->_db->close();
         }
-    }//falta aquí
+    }
     public function eliminarAct($idAct){
-        $instruccion = "CALL eliminartAct(".$idAct.")";
-        $consulta = $this->_db->query($instruccion);
-        $resultado = $consulta;
+        $instruccion = "CALL eliminartAct(?)";
+        $stmt = $this->_db->prepare($instruccion);
 
-        if(!$resultado){
+        // bind values
+        $stmt->bindParam(1, $idAct);
+
+        $stmt->execute();
+
+        if(!$stmt){
             print("<script> alert('Fallo al consultar las actividades'); </script>");
         }else{
-            return $resultado;
-            $resultado->close();
+            return $stmt;
+            $stmt->close();
             $this->_db->close();
         }
     }

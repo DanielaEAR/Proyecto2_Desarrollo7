@@ -1,5 +1,5 @@
 <?php
-require_once('../class/Actividad.php');
+require_once('../Interfaz/ConsumirApis.php');
 
 
     if($_REQUEST['rs'] == "si"){
@@ -12,8 +12,8 @@ require_once('../class/Actividad.php');
         array_key_exists('hora', $_POST)  && array_key_exists('ubicacion', $_POST) &&
         array_key_exists('email', $_POST) && array_key_exists('tiposA', $_POST) && $_REQUEST['tiposA'] != 0){
 
-        $obj_editarAct = new Actividad();
-        $editarActividad = $obj_editarAct->editarAct($_REQUEST['id'], $_REQUEST['titulo'], $_REQUEST['fecha'], $_REQUEST['hora'], 
+        $obj_editarAct = new ConsumirApi();
+        $editarActividad = $obj_editarAct->editarActividades($_REQUEST['id'], $_REQUEST['titulo'], $_REQUEST['fecha'], $_REQUEST['hora'], 
                                                 $_REQUEST['ubicacion'], $_REQUEST['email'], $valorRes, $_REQUEST['tiposA']);
         if($editarActividad > 0){
         //Se ingresó correctamente
