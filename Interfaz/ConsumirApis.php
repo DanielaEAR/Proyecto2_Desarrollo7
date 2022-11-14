@@ -70,16 +70,22 @@ Class ConsumirApi{
 
          return $resultado;
     }
-    public function eliminarActividades($id){//falta
+    public function eliminarActividades($id){
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "http://localhost/Proyectos/Proy2/api/objetos/Actividad/");
+        curl_setopt($ch, CURLOPT_URL, "http://localhost/Proyectos/Proy2/api/objetos/Actividad/eliminarActividad.php");
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $id);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        // EXECUTE:
         $resultado = curl_exec($ch);
 
-        $valores = json_decode($resultado, true);
-
-        return $valores;
+        if(!$resultado){
+            die("Connection Failure");
+        }
         curl_close($ch);
+
+        return $resultado;
     }
     public function crearActividades($data){
         $ch = curl_init();
