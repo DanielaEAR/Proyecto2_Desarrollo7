@@ -22,23 +22,20 @@ if($num>0){
     // arreglo de tipo de actividad
     $actividadRepoTodo_arr=array();
     $actividadRepoTodo_arr["actividades"]=array();
-    // obtiene todo el contenido de la tabla
-    // fetch() es mas rapido que fetchAll()
+
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-    // extraer fila
-    // esto creara de $row['nombre'] a
-    // solamente $nombre
-    extract($row);
-    $actividadRepoTodo_item=array(
-    "titulo" => $titulo,
-    "fecha" => $fecha,
-    "hora" => $hora,
-    "ubicacion" => $ubicacion,
-    "email" => $email,
-    "repetirAct" => $repetirAct,
-    "nombreAct" => $nombreAct
-    );
-    array_push($actividadRepoTodo_arr["actividades"], $actividadRepoTodo_item);
+
+        extract($row);
+        $actividadRepoTodo_item=array(
+            "titulo" => $titulo,
+            "fecha" => $fecha,
+            "hora" => $hora,
+            "ubicacion" => $ubicacion,
+            "email" => $email,
+            "repetirAct" => $repetirAct,
+            "nombreAct" => $nombreAct
+        );
+        array_push($actividadRepoTodo_arr["actividades"], $actividadRepoTodo_item);
     }
     // asignar codigo de respuesta - 200 OK
     http_response_code(200);
@@ -49,7 +46,7 @@ if($num>0){
     http_response_code(404);
     // informarle al usuario que no se encontraron productos
     echo json_encode(
-    array("message" => "No Hay Actividades.")
+    array("message" => "No Hay Actividades que consultar.")
     );
 }
 

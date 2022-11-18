@@ -10,10 +10,10 @@ header('Content-Type: application/json');
 // incluir archivos de conexion y objetos
 include_once '../../Conexion.php';
 include_once '../Actividad.php';
-// inicializar base de datos y objeto producto
+
 $conex = new Conexion();
 $db = $conex->obtenerConexion();
-// inicializar objeto
+
 $actividadeTodaPrinc= new Actividad($db);
 
 // query tipo de actividades
@@ -27,12 +27,9 @@ if($num>0){
     // arreglo de tipo de actividad
     $actividadeTodaPrinc_arr=array();
     $actividadeTodaPrinc_arr["actividades"]=array();
-    // obtiene todo el contenido de la tabla
-    // fetch() es mas rapido que fetchAll()
+
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-    // extraer fila
-    // esto creara de $row['nombre'] a
-    // solamente $nombre
+
     extract($row);
     $actividadeTodaPrinc_item=array(
     "titulo" => $titulo,
@@ -54,7 +51,7 @@ if($num>0){
     http_response_code(404);
     // informarle al usuario que no se encontraron productos
     echo json_encode(
-    array("message" => "No Hay Actividades.")
+    array("message" => "No Hay Actividades que consultar.")
     );
 }
 

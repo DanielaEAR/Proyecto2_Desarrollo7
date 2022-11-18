@@ -12,7 +12,7 @@ require_once('../Interfaz/ConsumirApis.php');
         array_key_exists('hora', $_POST)  && array_key_exists('ubicacion', $_POST) &&
         array_key_exists('email', $_POST) && array_key_exists('tiposA', $_POST) && $_REQUEST['tiposA'] != 0){
             
-            $data_array =  array(
+            $editarR_array =  array(
                 "id" => $_REQUEST['id'],
                 "titulo" => $_REQUEST['titulo'],
                 "fecha"  => $_REQUEST['fecha'],
@@ -23,8 +23,8 @@ require_once('../Interfaz/ConsumirApis.php');
                 "nombreAct"   => $_REQUEST['tiposA']
             );
 
-        $obj_editarAct = new ConsumirApi();
-        $editarActividad = $obj_editarAct->editarActividades(json_encode($data_array));
+        $obj_editar = new ConsumirApi();
+        $editarActividad = $obj_editar->editarActividades(json_encode($editarR_array));
 
         if($editarActividad > 0){
         //Se ingresó correctamente

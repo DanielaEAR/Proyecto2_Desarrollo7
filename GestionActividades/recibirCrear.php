@@ -11,7 +11,7 @@ require_once('../Interfaz/ConsumirApis.php');
        array_key_exists('hora', $_POST)  && array_key_exists('ubicacion', $_POST) &&
        array_key_exists('email', $_POST) && array_key_exists('tiposA', $_POST)){
 
-        $data_array =  array(
+        $registro_array =  array(
                   "titulo" => $_REQUEST['titulo'],
                   "fecha"  => $_REQUEST['fecha'],
                   "hora"   => $_REQUEST['hora'],
@@ -21,8 +21,8 @@ require_once('../Interfaz/ConsumirApis.php');
                   "nombreAct"   => $_REQUEST['tiposA']
                 );
 
-        $obj_act = new ConsumirApi();
-        $registrarActividad = $obj_act->crearActividades(json_encode($data_array));
+        $obj_crear = new ConsumirApi();
+        $registrarActividad = $obj_crear->crearActividades(json_encode($registro_array));
         
         if($registrarActividad > 0){
         //Se ingresó correctamente
