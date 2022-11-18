@@ -2,15 +2,10 @@
 
 class TipoActividad{
 
-    // conexion de base de datos y tabla tipoactividad
     private $_db;
 
-    // atributos de la clase
-    private $id_tipoAct;
-    private $nombreAct;
-
     public function __construct($db){
-   
+    // conexion de base de datos
         $this->_db = $db;
        
     }

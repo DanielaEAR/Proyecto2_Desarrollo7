@@ -61,16 +61,16 @@
     </div>
     <br/>
     <?php
-        $obj_repoAct = new ConsumirApi();
-        $reporte = $obj_repoAct->leerActividadesTodasR();
+        $obj_filtrarAct = new ConsumirApi();
+        $reporte = $obj_filtrarAct->leerActividadesTodasR();
         
         if(array_key_exists('ConsultarTodos', $_POST)){
-            $obj_repoAct = new ConsumirApi();
-            $reporte = $obj_repoAct->leerActividadesTodasR();
+            $obj_filtrarAct = new ConsumirApi();
+            $reporte = $obj_filtrarAct->leerActividadesTodasR();
         }
         if(array_key_exists('ConsultarFiltro', $_POST)){
-            $obj_repoAct = new ConsumirApi();
-            $reporte = $obj_repoAct-> leerActividadesReporte($_REQUEST['campos'], $_REQUEST['fechaValor'], $_REQUEST['tiposA']);
+            $obj_filtrarAct = new ConsumirApi();
+            $reporte = $obj_filtrarAct-> leerActividadesReporte($_REQUEST['campos'], $_REQUEST['fechaValor'], $_REQUEST['tiposA']);
         }
 
         $nfilas=count($reporte);
